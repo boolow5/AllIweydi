@@ -1,5 +1,5 @@
 <div class="col-sm-4 sidebar min-height">
-  <h1 class="column-header"><a href="#">Qeybta Ciyaaraha</a></h1>
+  <h1 class="column-header"><a href="#">{{i18n $.Lang "sports section"}}</a></h1>
   <div class="fb-life-scores">
     <!--
       <ul class="list-group">

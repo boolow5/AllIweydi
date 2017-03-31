@@ -1,1 +1,1 @@
-<h1>Welcome to iWeydi</h1>
+<h1>{{i18n $.Lang "welcome to"}} iWeydi</h1>

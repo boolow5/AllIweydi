@@ -1,4 +1,4 @@
-<h1 class="column-header"><a href="#">Qeybta Wararki Soomaalida</a></h1>
+<h1 class="column-header"><a href="#">{{i18n $.Lang "news section"}}</a></h1>
 <div class="latest-news">
 
   <ul class="list-group">
