@@ -63,18 +63,18 @@ func (this *BaseController) setLangVer() bool {
 	isNeedRedir := false
 	hasCookie := false
 
-	fmt.Println("Setting language version")
+	// fmt.Println("Setting language version")
 
 	// 1. Check URL arguments.
 	lang := this.Input().Get("lang")
 
-	fmt.Println("lang", lang)
+	// fmt.Println("lang", lang)
 
 	// 2. Get language information from cookies.
 	if len(lang) == 0 {
 		lang = this.Ctx.GetCookie("lang")
 		hasCookie = true
-		fmt.Println("Setting language in cookies")
+		// fmt.Println("Setting language in cookies")
 	} else {
 		isNeedRedir = true
 	}
