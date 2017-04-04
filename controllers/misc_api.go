@@ -17,27 +17,31 @@ func (this *MiscAPIController) Prepare() {
 }
 
 func (this *MiscAPIController) GetTranslation() {
-	word := this.Ctx.Input.Param(":word")
-	raw_args := strings.Split(this.Ctx.Input.Param(":args"), ",")
-	var args []interface{}
-	for i := 0; i < len(raw_args); i++ {
-		n, err := strconv.Atoi(raw_args[i])
-		if err == nil {
-			args = append(args, n)
-		} else {
-			args = append(args, raw_args[i])
+	if this.IsAjax() {
+		word := this.Ctx.Input.Param(":word")
+		raw_args := strings.Split(this.Ctx.Input.Param(":args"), ",")
+		var args []interface{}
+		for i := 0; i < len(raw_args); i++ {
+			n, err := strconv.Atoi(raw_args[i])
+			if err == nil {
+				args = append(args, n)
+			} else {
+				args = append(args, raw_args[i])
+			}
 		}
+		lang := this.Ctx.GetCookie("lang")
+
+		meaning := ""
+
+		if args[0] == -1 {
+			meaning = i18n.Tr(lang, word, nil)
+		} else {
+			meaning = i18n.Tr(lang, word, args)
+		}
+
+		this.Data["json"] = map[string]interface{}{"meaning": meaning}
+		this.ServeJSON()
+		return
 	}
-	lang := this.Ctx.GetCookie("lang")
-
-	meaning := ""
-
-	if args[0] == -1 {
-		meaning = i18n.Tr(lang, word, nil)
-	} else {
-		meaning = i18n.Tr(lang, word, args)
-	}
-
-	this.Data["json"] = map[string]interface{}{"meaning": meaning}
-	this.ServeJSON()
+	this.Redirect("/", 302)
 }
