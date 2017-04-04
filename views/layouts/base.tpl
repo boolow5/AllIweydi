@@ -28,6 +28,22 @@
 
     {{.featured}}
 
+
+    <div class="messages">
+      <div id="error" class="alert alert-danger alert-dismissible hidden" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <strong>Error!</strong> <span class="message"></span>
+      </div>
+      <div id="warning" class="alert alert-warning alert-dismissible hidden" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <strong>Warning!</strong> <span class="message"></span>
+      </div>
+      <div id="success" class="alert alert-success alert-dismissible hidden" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <strong>Success!</strong> <span class="message"></span>
+      </div>
+    </div>
+
     <div class="container  main-wrapper">
       <div class="row">
         {{.sidebarLeft}}
@@ -45,7 +61,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="static/bootstrap/js/bootstrap.min.js"></script>
-    <script src="/static/js/jquery.cookie.js"></script>
+    <script src="static/js/jquery.cookie.js"></script>
     <script src="static/js/main.js"></script>
   </body>
 </html>
