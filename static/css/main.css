@@ -109,6 +109,20 @@ h1.huge-banner {
   color: #0A593F;
 }
 .sidebar a:hover, .main-content a:hover {
-  color: #D84A38;
+  color: #000; /* #D84A38;*/
   text-decoration: none;
+}
+.nav-login-form {
+  margin-top: .7em;
+}
+.btn-small {
+  height: 1.8em;
+  padding: .1em;
+  padding-left: 1em;
+  padding-right: 1em;
+  border-radius: 0;
+}
+.icon-bar {
+  background-color: #fff;
+  box-shadow: 0 0 1px #000;
 }
