@@ -18,11 +18,11 @@
         <li><a href="/suaalaha">{{i18n $.Lang "questions"}}</a></li>
         <li><a href="/wararka">{{i18n $.Lang "news"}}</a></li>
         <li><a href="/ciyaaraha">{{i18n $.Lang "sports"}}</a></li>
-        <li><a href="/aboutus">{{i18n $.Lang "about us"}}</a></li>
-        <li><a href="/contactus">{{i18n $.Lang "contact us"}}</a></li>
       </ul>
 
       <ul class="nav navbar-nav navbar-right">
+
+
 
         <li role="presentation" class='dropdown'>
           <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
@@ -36,6 +36,31 @@
         </li>
 
       </ul>
+
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+          {{if .LoggedIn }}
+            <a href="#">{{i18n .Lang "welcome"}}, {{.CurrentUser}}</a>
+          {{end}}
+        </li>
+        <li>
+          {{if .LoggedIn }}
+            <a href="#" id="logout">Logout</a>
+          {{else}}
+            <form id="login-form" class="form nav-login-form" method="post" action="/login">
+              {{ .xsrfdata }}
+
+                <input type="text" class="" name="username" placeholder='{{i18n .Lang "username"}}' id="login-username" autofocus>
+                <input type="password" class="" name="password" placeholder='{{i18n .Lang "password"}}' id="login-email">
+
+              <button class="btn btn-primary btn-small" id="nav-login-user-btn">{{i18n .Lang "login_btn"}}</button>
+              {{i18n .Lang "or"}}
+              <a class="btn btn-primary btn-small" href="/register">{{i18n .Lang "register_btn"}}</a>
+            </form>
+          {{end}}
+        </li>
+      </ul>
+
 
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
