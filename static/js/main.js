@@ -38,6 +38,7 @@ function getFormData(formId){
       data[input.name] = input.value;
     }
   }
+  console.log(data);
   return data;
 }
 
@@ -53,6 +54,7 @@ function translate(result, ids) {
     type: "GET",
     contentType: "application/json",
     success: function(another_result) {
+      console.log(another_result);
 
       if (returned_word) {
         for (var i=0; i<ids.length; i++) {
@@ -61,4 +63,81 @@ function translate(result, ids) {
       }
     }
   });
+}
+
+$("#logout").on("click", function(e){
+  e.preventDefault();
+  $.ajax({
+    url: "/logout",
+    success: function(result) {
+      console.log(result);
+      //window.location.href = "http://localhost:8080";
+      if (result["error"]) {
+        errMessage = result["error"];
+        $("#error > .message").html(errMessage);
+        $("#error").removeClass("hidden");
+        $("#success").addClass("hidden");
+        translate(result, ["#error > .message"])
+
+      } else if (result["success"]) {
+        succMessage = result["success"];
+        translate(result, ["#success > span.message"])
+        // $("#success > span.message").html(succMessage);
+        $("#success").removeClass("hidden");
+        $("#error").addClass("hidden");
+        console.log("after 3 seconds the page will reload");
+        window.setTimeout(function(){
+          document.location.reload();
+        }, 5000)
+        console.log("waited for 3 seconds");
+      }
+    }
+  });
+});
+
+// login form
+$("#login-form").submit(function(e){
+  e.preventDefault();
+
+  console.log("Submiting login");
+  console.log(this.action);
+
+  $.ajax({
+    url: this.action,
+    type: this.method,
+    data: JSON.stringify(getFormData("login-form")),
+    contentType: "application/json",
+    success: function(result) {
+      console.log(result);
+      //window.location.href = "http://localhost:8080";
+      if (result["error"]) {
+        errMessage = result["error"];
+        $("#error > .message").html(errMessage);
+        ShowMessage("error");
+        translate(result, ["#error > .message"])
+
+      } else if (result["success"]) {
+        succMessage = result["success"];
+        translate(result, ["#success > span.message"])
+        //$("#success > span.message").html(succMessage);
+        ShowMessage("#success");
+        $("#login-form").html('');
+        console.log("after 3 seconds the page will reload");
+        window.setTimeout(function(){
+          document.location.reload();
+        }, 3000)
+        console.log("waited for 3 seconds");
+      }
+    }
+  });
+});
+
+function ShowMessage(id) {
+  if (id == "#success") {
+    $("#success").removeClass("hidden");
+    $("#error").addClass("hidden");
+  } else if (id == "#error") {
+    $("#error").removeClass("hidden");
+    $("#success").addClass("hidden");
+  }
 }
