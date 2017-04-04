@@ -11,9 +11,9 @@ type MainController struct {
 }
 
 func (c *MainController) Get() {
-	c.Data["Website"] = "beego.me"
-	c.Data["Email"] = "astaxie@gmail.com"
-	SetTemplate("index.tpl", &c.Controller)
+	flash := beego.ReadFromRequest(&c.Controller)
+	c.Data["message"] = flash
+	SetTemplate("pages/index.tpl", &c.Controller)
 }
 
 func SetTemplate(tplName string, controller *beego.Controller) {
@@ -38,4 +38,20 @@ func SetTemplate(tplName string, controller *beego.Controller) {
 	controller.XSRFExpire = 7200
 	controller.Data["xsrfdata"] = template.HTML(controller.XSRFFormHTML())
 
+	// check for login
+	controller.Data["LoggedIn"] = GetCurrentUser(controller) != ""
+}
+
+func GetCurrentUser(controller *beego.Controller) string {
+	// check for session username
+	username := controller.GetSession("username")
+	token := controller.GetSession("token")
+	if username != nil && token != nil {
+		// if found set the CurrentUser template variable and return username
+		controller.Data["CurrentUser"] = username
+		return username.(string)
+	}
+
+	// if session doesn't exist return empty string
+	return ""
 }
