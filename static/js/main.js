@@ -73,23 +73,12 @@ $("#logout").on("click", function(e){
       console.log(result);
       //window.location.href = "http://localhost:8080";
       if (result["error"]) {
-        errMessage = result["error"];
-        $("#error > .message").html(errMessage);
-        $("#error").removeClass("hidden");
-        $("#success").addClass("hidden");
         translate(result, ["#error > .message"])
-
+        ShowMessage("error");
       } else if (result["success"]) {
-        succMessage = result["success"];
         translate(result, ["#success > span.message"])
-        // $("#success > span.message").html(succMessage);
-        $("#success").removeClass("hidden");
-        $("#error").addClass("hidden");
-        console.log("after 3 seconds the page will reload");
-        window.setTimeout(function(){
-          document.location.reload();
-        }, 5000)
-        console.log("waited for 3 seconds");
+        ShowMessage("#success");
+        reloadAfter(5000)
       }
     }
   });
@@ -111,26 +100,28 @@ $("#login-form").submit(function(e){
       console.log(result);
       //window.location.href = "http://localhost:8080";
       if (result["error"]) {
-        errMessage = result["error"];
-        $("#error > .message").html(errMessage);
         ShowMessage("error");
         translate(result, ["#error > .message"])
 
       } else if (result["success"]) {
-        succMessage = result["success"];
         translate(result, ["#success > span.message"])
-        //$("#success > span.message").html(succMessage);
         ShowMessage("#success");
         $("#login-form").html('');
         console.log("after 3 seconds the page will reload");
-        window.setTimeout(function(){
-          document.location.reload();
-        }, 3000)
+        reloadAfter(5000)
         console.log("waited for 3 seconds");
       }
     }
   });
 });
+
+function reloadAfter(seconds) {
+  if (typeof seconds == "number") {
+    window.setTimeout(function(){
+      document.location.reload();
+    }, seconds)
+  }
+}
 
 function ShowMessage(id) {
   if (id == "#success") {
@@ -141,3 +132,7 @@ function ShowMessage(id) {
     $("#success").addClass("hidden");
   }
 }
+
+$(document).ready(function(e) {
+  console.log("document is ready");
+})
