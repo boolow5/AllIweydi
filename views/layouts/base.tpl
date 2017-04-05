@@ -63,5 +63,8 @@
     <script src="static/bootstrap/js/bootstrap.min.js"></script>
     <script src="static/js/jquery.cookie.js"></script>
     <script src="static/js/main.js"></script>
+    <script src="static/js/vue.js"></script>
+    <script src="static/js/vue-i18n.js"></script>
+    <script src="static/js/news.js"></script>
   </body>
 </html>
