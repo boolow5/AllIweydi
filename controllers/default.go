@@ -1,9 +1,12 @@
 package controllers
 
 import (
+	"fmt"
 	"html/template"
+	"strconv"
 
 	"github.com/astaxie/beego"
+	"github.com/boolow5/BolWeydiWararka/models"
 )
 
 type MainController struct {
@@ -12,6 +15,13 @@ type MainController struct {
 
 func (c *MainController) Get() {
 	flash := beego.ReadFromRequest(&c.Controller)
+	page, _ := strconv.Atoi(c.Ctx.Input.Query("page"))
+	itemsPerPage, _ := strconv.Atoi(c.Ctx.Input.Query("ipp"))
+	fmt.Println("Page:", page, "\tItems per Page:", itemsPerPage)
+	if itemsPerPage == 0 {
+		itemsPerPage = 20
+	}
+	c.Data["NewsItems"], _ = models.GetNewsItems(page*itemsPerPage, itemsPerPage)
 	c.Data["message"] = flash
 	SetTemplate("pages/index.tpl", &c.Controller)
 }

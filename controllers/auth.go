@@ -15,7 +15,7 @@ var BOL_AUTH_URL string
 func init() {
 	BOL_AUTH_URL = os.Getenv("BOL_AUTH_URL")
 	if BOL_AUTH_URL == "" {
-		BOL_AUTH_URL = "http://localhost:8080"
+		BOL_AUTH_URL = "http://localhost:8881"
 	}
 }
 
